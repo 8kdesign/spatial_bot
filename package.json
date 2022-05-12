@@ -1,0 +1,24 @@
+{
+	"name": "spatial_bot",
+	"version": "1.0.0",
+	"description": "Telegram bot for Spatial",
+	"main": "app.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "node app.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/8kdesign/spatial_bot.git"
+	},
+	"author": "8K",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/8kdesign/spatial_bot/issues"
+	},
+	"homepage": "https://github.com/8kdesign/spatial_bot#readme",
+	"type": "module",
+	"dependencies": {
+		"telegraf": "^4.8.1"
+	}
+}
