@@ -17,18 +17,15 @@ export function initializeMenu({ bot }) {
 					},
 				]);
 			});
-			bot.telegram.sendMessage(
-				context.chat.id,
-				"Selected: #" + data.index,
-				{
-					reply_markup: {
-						inline_keyboard: buttons,
-					},
-				}
-			);
+			var message = "Selected: #" + data.index;
 			if (data.answer.length > 0) {
-				bot.telegram.sendMessage(context.chat.id, data.answer);
+				message = message + "\n\n" + data.answer;
 			}
+			bot.telegram.sendMessage(context.chat.id, message, {
+				reply_markup: {
+					inline_keyboard: buttons,
+				},
+			});
 		});
 	});
 }
