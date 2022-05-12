@@ -27,5 +27,8 @@ export function initializeMenu({ bot }) {
 				}
 			);
 		});
+		if (data.answer.length > 0) {
+			bot.telegram.sendMessage(context.chat.id, data.answer);
+		}
 	});
 }
