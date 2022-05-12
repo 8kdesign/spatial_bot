@@ -1,14 +1,7 @@
 import { Telegraf } from "telegraf";
 import express from "express";
-// import bodyParser from "body-parser";
-// import axios from "axios";
 import { printMenu } from "./logic/main_menu.js";
 import { initializeMenu } from "./logic/menu.js";
-
-const { TOKEN, SERVER_URL } = process.env;
-const TELEGRAM_API = `https://api.telegram.org/bot${TOKEN}`;
-const URI = `/webhook/${TOKEN}`;
-const WEBHOOK_URL = SERVER_URL + URI;
 
 // For Heroku
 
