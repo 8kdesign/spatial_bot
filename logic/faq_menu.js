@@ -2,7 +2,7 @@ import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 const mockData = require("../mock_data/mock_data.json");
 
-export function initializeMenu({ bot }) {
+export function initializeFAQ({ bot }) {
 	mockData.data.forEach((data) => {
 		var callback = "callback" + data.index;
 		bot.action(callback, (context) => {
@@ -17,7 +17,7 @@ export function initializeMenu({ bot }) {
 					},
 				]);
 			});
-			var message = "Selected: #" + data.index;
+			var message = "<b>" + data.question + "</b>";
 			if (data.answer.length > 0) {
 				message = message + "\n\n" + data.answer;
 			}
@@ -25,6 +25,7 @@ export function initializeMenu({ bot }) {
 				reply_markup: {
 					inline_keyboard: buttons,
 				},
+				parse_mode: "HTML",
 			});
 		});
 	});

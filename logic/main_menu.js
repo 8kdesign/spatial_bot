@@ -1,18 +1,11 @@
-import { createRequire } from "module";
-const require = createRequire(import.meta.url);
-const mockData = require("../mock_data/mock_data.json");
-
 export function printMenu({ bot, context }) {
 	const intro = "Hello! What can I do for you?";
-	var responses = [0, 1, 2];
 	var buttons = [];
-	responses.forEach((index) => {
-		const response = mockData.data.find((it) => it.index == index);
-		if (response === null) return;
+	mainMenuItems.forEach((item) => {
 		buttons.push([
 			{
-				text: response.question,
-				callback_data: "callback" + response.index,
+				text: item.text,
+				callback_data: item.callback,
 			},
 		]);
 	});
@@ -22,3 +15,14 @@ export function printMenu({ bot, context }) {
 		},
 	});
 }
+
+const mainMenuItems = [
+	{
+		text: "Browse Locations",
+		callback: "locations",
+	},
+	{
+		text: "Ask a Question",
+		callback: "callback0",
+	},
+];

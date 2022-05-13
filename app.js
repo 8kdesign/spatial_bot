@@ -1,7 +1,8 @@
 import { Telegraf } from "telegraf";
 import express from "express";
 import { printMenu } from "./logic/main_menu.js";
-import { initializeMenu } from "./logic/menu.js";
+import { initializeFAQ } from "./logic/faq_menu.js";
+import { initializeLocations } from "./logic/location.js";
 
 // For Heroku
 
@@ -13,10 +14,16 @@ app.listen(port_number);
 
 const bot = new Telegraf("5202467843:AAEw8IbW7tn6teXzDOcJaoFb9r_He1DwTQM");
 
+var debug = "";
+bot.command("debug", (context) => {
+	bot.telegram.sendMessage(context.chat.id, debug);
+});
+
 bot.command("start", (context) => {
 	printMenu({ bot, context });
 });
 
-initializeMenu({ bot });
+initializeLocations({ bot });
+initializeFAQ({ bot });
 
 bot.launch();
