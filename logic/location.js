@@ -38,6 +38,7 @@ function printSelection({ bot, context }) {
 	bot.telegram.sendMessage(context.chat.id, intro, {
 		reply_markup: {
 			inline_keyboard: buttons,
+			one_time_keyboard: true,
 		},
 	});
 }
