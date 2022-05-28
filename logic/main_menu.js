@@ -29,6 +29,10 @@ const mainMenuItems = [
 		callback: "profile",
 	},
 	{
+		text: "Manage Bookings",
+		callback: "bookings",
+	},
+	{
 		text: "Browse Locations",
 		callback: "locations",
 	},

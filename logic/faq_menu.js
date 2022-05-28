@@ -1,14 +1,14 @@
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
-const mockData = require("../mock_data/mock_data.json");
+const questions = require("../questions/questions.json");
 
 export function initializeFAQ({ bot }) {
-	mockData.data.forEach((data) => {
+	questions.data.forEach((data) => {
 		var callback = "callback" + data.index;
 		bot.action(callback, (context) => {
 			var buttons = [];
 			data.response.forEach((index) => {
-				const response = mockData.data.find((it) => it.index == index);
+				const response = questions.data.find((it) => it.index == index);
 				if (response === null) return;
 				buttons.push([
 					{

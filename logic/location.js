@@ -1,6 +1,6 @@
 export function initializeLocations({ bot }) {
 	bot.action("locations", (context) => {
-		printSelection({ bot, context });
+		printLocationSelection({ bot, context });
 	});
 	locations.forEach((location) => {
 		bot.action(location.callback, (context) => {
@@ -23,7 +23,7 @@ export function initializeLocations({ bot }) {
 	});
 }
 
-function printSelection({ bot, context }) {
+function printLocationSelection({ bot, context }) {
 	const intro =
 		"Situated closed to the heartlands, our charming coworking space is surrounded by a multitude of F&B and lifestyle establishments. Spatial is easily accessible and offers sophisticated and beautiful spaces that help you enhance your productivity and innovation. \n\nSpatial is currently available at the following locations:";
 	var buttons = [];
