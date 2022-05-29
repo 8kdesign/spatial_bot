@@ -28,15 +28,54 @@ function printProfileActions({ bot, context }) {
 
 const profileActions = [
 	{
+		text: "Check Profile",
+		callback: "checkprofile",
+	},
+	{
 		text: "Edit Profile",
 		callback: "setupprofile",
 	},
 ];
 
+// Check Profile
+
+const checkScene = new Scenes.WizardScene(
+	"Check Profile",
+	(context) => {
+		// Ask for phone number
+		context.reply("What is your phone number?", {
+			reply_markup: {
+				one_time_keyboard: true,
+				keyboard: [
+					[{ text: "Send my phone number", request_contact: true }],
+				],
+			},
+		});
+		return context.wizard.next();
+	},
+	(context) => {
+		// Check data for phone number
+		if (checkExit({ context })) return context.scene.leave();
+		if (
+			context.message === undefined ||
+			context.message.contact === undefined
+		) {
+			printError({ context });
+			return;
+		}
+		context.reply(
+			"Data for " +
+				context.message.contact.phone_number +
+				" will go here."
+		);
+		return context.scene.leave();
+	}
+);
+
 // Setup Profile
 
 const setupScene = new Scenes.WizardScene(
-	"Profile",
+	"Setup Profile",
 	(context) => {
 		// Ask for name
 		context.reply("What is your name?");
@@ -142,11 +181,14 @@ const setupScene = new Scenes.WizardScene(
 
 // Setup Stage
 
-export const stage = new Scenes.Stage([setupScene]);
+export const stage = new Scenes.Stage([setupScene, checkScene]);
 function startSetup({ bot }) {
 	bot.use(stage.middleware());
+	bot.action("checkprofile", (context) => {
+		context.scene.enter("Check Profile");
+	});
 	bot.action("setupprofile", (context) => {
-		context.scene.enter("Profile");
+		context.scene.enter("Setup Profile");
 	});
 }
 
@@ -156,7 +198,8 @@ const yesNo = ["Yes", "No"];
 
 // Misc
 function checkExit({ context }) {
-	if (context.message === undefined) return;
+	if (context.message === undefined || context.message.text === undefined)
+		return;
 	const toExit = context.message.text.toLowerCase() === "exit";
 	if (toExit) {
 		context.reply("Exited profile setup.");
