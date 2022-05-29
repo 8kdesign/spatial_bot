@@ -35,7 +35,7 @@ const profileActions = [
 
 // Setup Profile
 
-const scene = new Scenes.WizardScene(
+const setupScene = new Scenes.WizardScene(
 	"Profile",
 	(context) => {
 		// Ask for name
@@ -45,9 +45,10 @@ const scene = new Scenes.WizardScene(
 	},
 	(context) => {
 		// Save name and ask for email
+		if (checkExit({ context })) return context.scene.leave();
 		if (context.message === undefined) {
-			context.reply("Invalid input. Set profile exited.");
-			return context.scene.leave();
+			printError({ context });
+			return;
 		}
 		context.wizard.state.contactData.name = context.message.text;
 		context.reply(
@@ -57,9 +58,10 @@ const scene = new Scenes.WizardScene(
 	},
 	(context) => {
 		// Save email and ask for phone
+		if (checkExit({ context })) return context.scene.leave();
 		if (context.message === undefined) {
-			context.reply("Invalid input. Set profile exited.");
-			return context.scene.leave();
+			printError({ context });
+			return;
 		}
 		context.wizard.state.contactData.email = context.message.text;
 		context.reply("What is your phone number?", {
@@ -74,12 +76,13 @@ const scene = new Scenes.WizardScene(
 	},
 	(context) => {
 		// Save phone and ask for member type
+		if (checkExit({ context })) return context.scene.leave();
 		if (
 			context.message === undefined ||
 			context.message.contact === undefined
 		) {
-			context.reply("Invalid input. Set profile exited.");
-			return context.scene.leave();
+			printError({ context });
+			return;
 		}
 		context.wizard.state.contactData.phone =
 			context.message.contact.phone_number;
@@ -97,13 +100,14 @@ const scene = new Scenes.WizardScene(
 	},
 	(context) => {
 		// Save member type and ask for vaccination status
+		if (checkExit({ context })) return context.scene.leave();
 		if (
 			context.message === undefined ||
 			memberType.find((type) => type === context.message.text) ===
 				undefined
 		) {
-			context.reply("Invalid input. Set profile exited.");
-			return context.scene.leave();
+			printError({ context });
+			return;
 		}
 		context.wizard.state.contactData.type = context.message.text;
 		const toggles = [];
@@ -120,12 +124,13 @@ const scene = new Scenes.WizardScene(
 	},
 	(context) => {
 		// Save vaccination status
+		if (checkExit({ context })) return context.scene.leave();
 		if (
 			context.message === undefined ||
 			yesNo.find((type) => type === context.message.text) === undefined
 		) {
-			context.reply("Invalid input. Set profile exited.");
-			return context.scene.leave();
+			printError({ context });
+			return;
 		}
 		context.wizard.state.contactData.vaccinated = context.message.text;
 		context
@@ -134,8 +139,10 @@ const scene = new Scenes.WizardScene(
 		return context.scene.leave();
 	}
 );
-const stage = new Scenes.Stage([scene]);
 
+// Setup Stage
+
+export const stage = new Scenes.Stage([setupScene]);
 function startSetup({ bot }) {
 	bot.use(stage.middleware());
 	bot.action("setupprofile", (context) => {
@@ -146,3 +153,19 @@ function startSetup({ bot }) {
 const memberType = ["Student", "Working Adult", "Tutor"];
 
 const yesNo = ["Yes", "No"];
+
+// Misc
+function checkExit({ context }) {
+	if (context.message === undefined) return;
+	const toExit = context.message.text.toLowerCase() === "exit";
+	if (toExit) {
+		context.reply("Exited profile setup.");
+	}
+	return toExit;
+}
+
+function printError({ context }) {
+	context.reply(
+		'Invalid input. Please re-enter.\n\nTo exit, please type "exit".'
+	);
+}

@@ -6,7 +6,7 @@ import { printStart } from "./logic/start.js";
 import { printMenu } from "./logic/main_menu.js";
 import { initializeFAQ } from "./logic/faq_menu.js";
 import { initializeLocations } from "./logic/location.js";
-import { initializeProfile } from "./logic/profile.js";
+import { initializeProfile, stage } from "./logic/profile.js";
 import { initializeBookings } from "./logic/booking.js";
 
 // For Heroku
@@ -14,9 +14,6 @@ import { initializeBookings } from "./logic/booking.js";
 const app = express();
 var port_number = app.listen(process.env.PORT || 3000);
 app.listen(port_number);
-
-// Id to phone number mapping
-const idPhoneMap = new Map();
 
 // Bot
 const bot = new Telegraf(process.env.TELEGRAM_TOKEN);
@@ -35,7 +32,7 @@ bot.command("menu", (context) => {
 });
 
 initializeProfile({ bot });
-initializeBookings({ bot, idPhoneMap });
+initializeBookings({ bot });
 initializeLocations({ bot });
 initializeFAQ({ bot });
 
@@ -51,7 +48,7 @@ function checkSceneStatus({ bot, context }) {
 	bot.telegram.deleteMessage(context.chat.id, context.lastSentId);
 	bot.telegram.sendMessage(
 		context.chat.id,
-		"Invalid input. Please re-enter."
+		'Invalid input. Please re-enter.\n\nTo exit, please type "exit".'
 	);
 	return true;
 }
