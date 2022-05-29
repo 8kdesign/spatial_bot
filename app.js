@@ -48,10 +48,10 @@ function checkSceneStatus({ bot, context }) {
 		context.session.__scenes.cursor == undefined
 	)
 		return false;
-	const cursor = context.session.__scenes.cursor;
 	bot.telegram.deleteMessage(context.chat.id, context.lastSentId);
-	if (cursor < message.length) {
-		bot.telegram.sendMessage(context.chat.id, message[cursor - 1]);
-	}
+	bot.telegram.sendMessage(
+		context.chat.id,
+		"Invalid input. Please re-enter."
+	);
 	return true;
 }

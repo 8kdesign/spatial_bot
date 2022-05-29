@@ -39,7 +39,7 @@ const scene = new Scenes.WizardScene(
 	"Profile",
 	(context) => {
 		// Ask for name
-		context.reply(message[0]);
+		context.reply("What is your name?");
 		context.wizard.state.contactData = {};
 		return context.wizard.next();
 	},
@@ -50,7 +50,9 @@ const scene = new Scenes.WizardScene(
 			return context.scene.leave();
 		}
 		context.wizard.state.contactData.name = context.message.text;
-		context.reply(message[1]);
+		context.reply(
+			"What is your email?\nTo enjoy student pricing, please use your school email address."
+		);
 		return context.wizard.next();
 	},
 	(context) => {
@@ -60,7 +62,7 @@ const scene = new Scenes.WizardScene(
 			return context.scene.leave();
 		}
 		context.wizard.state.contactData.email = context.message.text;
-		context.reply(message[2], {
+		context.reply("What is your phone number?", {
 			reply_markup: {
 				one_time_keyboard: true,
 				keyboard: [
@@ -85,7 +87,7 @@ const scene = new Scenes.WizardScene(
 		memberType.forEach((type) => {
 			toggles.push([{ text: type }]);
 		});
-		context.reply(message[3], {
+		context.reply("What is your member type?", {
 			reply_markup: {
 				one_time_keyboard: true,
 				keyboard: toggles,
@@ -108,7 +110,7 @@ const scene = new Scenes.WizardScene(
 		yesNo.forEach((option) => {
 			toggles.push([{ text: option }]);
 		});
-		context.reply(message[4], {
+		context.reply("Are you vaccinated against COVID-19?", {
 			reply_markup: {
 				one_time_keyboard: true,
 				keyboard: toggles,
@@ -127,7 +129,7 @@ const scene = new Scenes.WizardScene(
 		}
 		context.wizard.state.contactData.vaccinated = context.message.text;
 		context
-			.reply(message[5])
+			.reply("Successfully Added")
 			.then(context.reply(context.wizard.state.contactData));
 		return context.scene.leave();
 	}
@@ -140,15 +142,6 @@ function startSetup({ bot }) {
 		context.scene.enter("Profile");
 	});
 }
-
-const message = [
-	"What is your name?",
-	"What is your email?\nTo enjoy student pricing, please use your school email address.",
-	"What is your phone number?",
-	"What is your member type?",
-	"Are you vaccinated against COVID-19?",
-	"Successfully Added",
-];
 
 const memberType = ["Student", "Working Adult", "Tutor"];
 
