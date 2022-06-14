@@ -6,7 +6,7 @@ import { printStart } from "./logic/start.js";
 import { printMenu } from "./logic/main_menu.js";
 import { initializeFAQ } from "./logic/faq_menu.js";
 import { initializeLocations } from "./logic/location.js";
-import { initializeProfile, stage } from "./logic/profile.js";
+import { initializeProfile } from "./logic/profile.js";
 import { initializeBookings } from "./logic/booking.js";
 
 // For Heroku
