@@ -25,21 +25,15 @@ bot.command("start", (context) => {
 	});
 });
 
-bot.command("menu", (context) => {
-	printMenu({ bot, context }).then(() => {
-		checkSceneStatus({ bot, context });
-	});
-});
-
 bot.command("faq", (context) => {
 	printFAQ({ bot, context }).then(() => {
 		checkSceneStatus({ bot, context });
 	});
 });
 
-initializeProfile({ bot });
-initializeBookings({ bot });
-initializeLocations({ bot });
+// initializeProfile({ bot });
+// initializeBookings({ bot });
+// initializeLocations({ bot });
 initializeFAQ({ bot });
 
 bot.launch();

@@ -1,7 +1,7 @@
 export function printStart({ bot, context }) {
 	return new Promise((resolve) => {
 		const intro =
-			"Hello! Welcome to Spatial. To open the main menu, type /menu or click on the menu button below.";
+			"Hello! Welcome to Spatial. Click on the menu button below to see all commands. Alternatively, tap on the following commands:\n\n/FAQ - View frequently asked questions.";
 		bot.telegram.sendMessage(context.chat.id, intro).then((message) => {
 			context.lastSentId = message.message_id;
 			resolve();

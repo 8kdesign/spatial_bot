@@ -4,7 +4,6 @@ export function printFAQ({ bot, context }) {
 	return new Promise((resolve) => {
 		const mainResponse = questions[0];
 		const buttons = [];
-
 		mainResponse.response.forEach((index) => {
 			const response = questions.find((it) => it.index == index);
 			if (response === undefined) return;
