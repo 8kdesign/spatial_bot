@@ -43,7 +43,7 @@ export function initializeFAQ({ bot }) {
 					},
 				]);
 			});
-			const message = "<b>" + data.question + "</b>";
+			var message = "<b>" + data.question + "</b>";
 			if (data.answer.length > 0) {
 				if (data.type === responseType.Image) {
 					bot.telegram
