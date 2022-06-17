@@ -1,28 +1,28 @@
 import { Scenes } from "telegraf";
 
-export async function initializeProfile({ bot }) {
-	bot.action("profile", (context) => {
-		printProfileActions({ bot, context });
-	});
-	startSetup({ bot });
-}
-
 // Action Selection
 
 function printProfileActions({ bot, context }) {
-	var buttons = [];
-	profileActions.forEach((item) => {
-		buttons.push([
-			{
-				text: item.text,
-				callback_data: item.callback,
-			},
-		]);
-	});
-	bot.telegram.sendMessage(context.chat.id, "What would you like to do?", {
-		reply_markup: {
-			inline_keyboard: buttons,
-		},
+	return new Promise((resolve) => {
+		var buttons = [];
+		profileActions.forEach((item) => {
+			buttons.push([
+				{
+					text: item.text,
+					callback_data: item.callback,
+				},
+			]);
+		});
+		bot.telegram
+			.sendMessage(context.chat.id, "What would you like to do?", {
+				reply_markup: {
+					inline_keyboard: buttons,
+				},
+			})
+			.then((message) => {
+				context.lastSentId = message.message_id;
+				resolve();
+			});
 	});
 }
 
@@ -182,7 +182,7 @@ const setupScene = new Scenes.WizardScene(
 // Setup Stage
 
 export const stage = new Scenes.Stage([setupScene, checkScene]);
-function startSetup({ bot }) {
+function initializeProfile({ bot }) {
 	bot.use(stage.middleware());
 	bot.action("checkprofile", (context) => {
 		context.scene.enter("Check Profile");
