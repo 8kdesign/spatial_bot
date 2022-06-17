@@ -1,20 +1,27 @@
 export function printLocation({ bot, context }) {
-	const intro =
-		"Situated closed to the heartlands, our charming coworking space is surrounded by a multitude of F&B and lifestyle establishments. Spatial is easily accessible and offers sophisticated and beautiful spaces that help you enhance your productivity and innovation. \n\nSpatial is currently available at the following locations:";
-	var buttons = [];
-	locations.forEach((location) => {
-		buttons.push([
-			{
-				text: location.name,
-				callback_data: location.callback,
-			},
-		]);
-	});
-	bot.telegram.sendMessage(context.chat.id, intro, {
-		reply_markup: {
-			inline_keyboard: buttons,
-			one_time_keyboard: true,
-		},
+	return new Promise((resolve) => {
+		const intro =
+			"Situated closed to the heartlands, our charming coworking space is surrounded by a multitude of F&B and lifestyle establishments. Spatial is easily accessible and offers sophisticated and beautiful spaces that help you enhance your productivity and innovation. \n\nSpatial is currently available at the following locations:";
+		var buttons = [];
+		locations.forEach((location) => {
+			buttons.push([
+				{
+					text: location.name,
+					callback_data: location.callback,
+				},
+			]);
+		});
+		bot.telegram
+			.sendMessage(context.chat.id, intro, {
+				reply_markup: {
+					inline_keyboard: buttons,
+					one_time_keyboard: true,
+				},
+			})
+			.then((message) => {
+				context.lastSentId = message.message_id;
+				resolve();
+			});
 	});
 }
 
