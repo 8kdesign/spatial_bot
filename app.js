@@ -38,7 +38,7 @@ bot.command("faq", (context) => {
 
 // initializeProfile({ bot });
 // initializeBookings({ bot });
-initializeLocations({ bot });
+// initializeLocations({ bot });
 initializeFAQ({ bot });
 
 bot.launch();
