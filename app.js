@@ -3,9 +3,8 @@ import "dotenv/config";
 import express from "express";
 
 import { printStart } from "./logic/start.js";
-import { printMenu } from "./logic/main_menu.js";
 import { initializeFAQ, printFAQ } from "./logic/faq_menu.js";
-import { initializeLocations } from "./logic/location.js";
+import { initializeLocations, printLocation } from "./logic/location.js";
 import { initializeProfile } from "./logic/profile.js";
 import { initializeBookings } from "./logic/booking.js";
 
@@ -25,6 +24,12 @@ bot.command("start", (context) => {
 	});
 });
 
+bot.command("location", (context) => {
+	printLocation({ bot, context }).then(() => {
+		checkSceneStatus({ bot, context });
+	});
+});
+
 bot.command("faq", (context) => {
 	printFAQ({ bot, context }).then(() => {
 		checkSceneStatus({ bot, context });
@@ -33,7 +38,7 @@ bot.command("faq", (context) => {
 
 // initializeProfile({ bot });
 // initializeBookings({ bot });
-// initializeLocations({ bot });
+initializeLocations({ bot });
 initializeFAQ({ bot });
 
 bot.launch();

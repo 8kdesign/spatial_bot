@@ -1,7 +1,24 @@
-export function initializeLocations({ bot }) {
-	bot.action("locations", (context) => {
-		printLocationSelection({ bot, context });
+export function printLocation({ bot, context }) {
+	const intro =
+		"Situated closed to the heartlands, our charming coworking space is surrounded by a multitude of F&B and lifestyle establishments. Spatial is easily accessible and offers sophisticated and beautiful spaces that help you enhance your productivity and innovation. \n\nSpatial is currently available at the following locations:";
+	var buttons = [];
+	locations.forEach((location) => {
+		buttons.push([
+			{
+				text: location.name,
+				callback_data: location.callback,
+			},
+		]);
 	});
+	bot.telegram.sendMessage(context.chat.id, intro, {
+		reply_markup: {
+			inline_keyboard: buttons,
+			one_time_keyboard: true,
+		},
+	});
+}
+
+export function initializeLocations({ bot }) {
 	locations.forEach((location) => {
 		bot.action(location.callback, (context) => {
 			var message =
@@ -20,26 +37,6 @@ export function initializeLocations({ bot }) {
 					});
 				});
 		});
-	});
-}
-
-function printLocationSelection({ bot, context }) {
-	const intro =
-		"Situated closed to the heartlands, our charming coworking space is surrounded by a multitude of F&B and lifestyle establishments. Spatial is easily accessible and offers sophisticated and beautiful spaces that help you enhance your productivity and innovation. \n\nSpatial is currently available at the following locations:";
-	var buttons = [];
-	locations.forEach((location) => {
-		buttons.push([
-			{
-				text: location.name,
-				callback_data: location.callback,
-			},
-		]);
-	});
-	bot.telegram.sendMessage(context.chat.id, intro, {
-		reply_markup: {
-			inline_keyboard: buttons,
-			one_time_keyboard: true,
-		},
 	});
 }
 
