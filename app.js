@@ -5,8 +5,6 @@ import express from "express";
 import { printStart } from "./logic/start.js";
 import { initializeFAQ, printFAQ } from "./logic/faq_menu.js";
 import { initializeLocations, printLocation } from "./logic/location.js";
-import { initializeProfile } from "./logic/profile.js";
-import { initializeBookings } from "./logic/booking.js";
 
 // For Heroku
 
