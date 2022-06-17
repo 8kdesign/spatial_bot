@@ -297,7 +297,7 @@ export const questions = [
 		type: responseType.Question,
 		question: "WhatsApp",
 		response: [],
-		answer: "",
+		answer: "Please do drop us a text at http://wa.me/6580116004.",
 	},
 	{
 		index: 84,

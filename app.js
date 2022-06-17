@@ -4,7 +4,7 @@ import express from "express";
 
 import { printStart } from "./logic/start.js";
 import { printMenu } from "./logic/main_menu.js";
-import { initializeFAQ } from "./logic/faq_menu.js";
+import { initializeFAQ, printFAQ } from "./logic/faq_menu.js";
 import { initializeLocations } from "./logic/location.js";
 import { initializeProfile } from "./logic/profile.js";
 import { initializeBookings } from "./logic/booking.js";
@@ -27,6 +27,12 @@ bot.command("start", (context) => {
 
 bot.command("menu", (context) => {
 	printMenu({ bot, context }).then(() => {
+		checkSceneStatus({ bot, context });
+	});
+});
+
+bot.command("faq", (context) => {
+	printFAQ({ bot, context }).then(() => {
 		checkSceneStatus({ bot, context });
 	});
 });
