@@ -274,14 +274,14 @@ export const questions = [
 		index: 37,
 		type: responseType.Question,
 		question: "Purchasing a Package",
-		response: [],
+		response: [154, 94, 97, 73, 98],
 		answer: "",
 	},
 	{
 		index: 38,
 		type: responseType.Question,
 		question: "Terms & Conditions",
-		response: [],
+		response: [95, 96, 99, 100, 78, 74, 91, 92, 93],
 		answer: "",
 	},
 	// Subcategories -> Contact Us
@@ -592,7 +592,7 @@ export const questions = [
 		index: 78,
 		type: responseType.Question,
 		question:
-			"I cannot finish my half day pass / full day, can I carry over to another day?",
+			"I cannot finish my half/full day pass, can I carry over to another day?",
 		response: [],
 		answer: "No, any unused remaining hours in your half and full day passes will not be carried over to other days. Just hustle more yahh!",
 	},
@@ -1090,10 +1090,17 @@ export const questions = [
 		response: [],
 		answer: "Yes you can do so as and your access code can be used for re-entry into the space throughout your booking duration.",
 	},
+	{
+		index: 154,
+		type: responseType.Question,
+		question: "what packages are available?",
+		response: [],
+		answer: "Check out our variety of packages available for both students and working adults at spatial.sg/costudy and spatial.sg/cowork!",
+	},
 ];
 
 /**
- * Last Used Index: 
+ * Last Used Index: 154
  * 
  * Template:
  * 	{
